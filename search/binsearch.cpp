@@ -1,32 +1,20 @@
 #include "../headers/headers.h"
+// On iterables v use lower_bound(v.begin(),v.begin()+delta,key) and upper_bound(v.begin(), v.begin()+delta,key)
+
 int val;
 vi vals;
-bool discreteP(int x) { return vals[x] > val; }
+bool discreteP(int x) { return x > val; }
 
-int lowerBound(int start, int end, int val) //Searches for the least value x such that discreteP(x) is true
+int bin(int start, int end)
 {
-    int left = start, right = end;
+    int left = start, right = end, mid;
     while (left < right)
     {
-        int mid = left + (right - left) / 2;
-        if (discreteP(mid))
+        mid = (left + right) / 2;
+        if (discreteP(vals[mid]))
             right = mid;
         else
             left = mid + 1;
-    }
-    return left;
-}
-
-int upperBound(int start, int end, int val) //Searches for the greatest value x such that discreteP(x) is false
-{
-    int left = start, right = end;
-    while (left < right)
-    {
-        int mid = left + (right - left + 1) / 2;
-        if (discreteP(mid))
-            right = mid - 1;
-        else
-            left = mid;
     }
     return left;
 }

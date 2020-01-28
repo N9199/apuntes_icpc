@@ -8,7 +8,7 @@
 /* Reading from stdin */
 /* ================== */
 // With scanf
-scanf("%d", &a);            //int
+scanf("%d", &a);            // int
 scanf("%x", &a);            // int in hexadecimal
 scanf("%llx", &a);          // long long in hexadecimal
 scanf("%lld", &a);          // long long int
@@ -24,37 +24,31 @@ scanf("%d %*s %d", &a, &b); //* = consume but skip
 //  - nothing is written into buffer if EOF is found
 scanf(" %[^\n]", buffer);
 
-//reading until EOL or EOF
+// reading until EOL or EOF
 //  - EOL not included in buffer
 //  - EOL is consumed
 //  - works with EOF
 char *output = gets(buffer);
-if (feof(stind))
-{
+if (feof(stind)) {
 } // EOF file found
-if (output == buffer)
-{
+if (output == buffer) {
 } // succesful read
-if (output == NULL)
-{
+if (output == NULL) {
 } // EOF found without previous chars found
-//example
-while (gets(buffer) != NULL)
-{
-    puts(buffer);
-    if (feof(stdin))
-    {
-        break;
-    }
+// example
+while (gets(buffer) != NULL) {
+  puts(buffer);
+  if (feof(stdin)) {
+    break;
+  }
 }
 
 // read single char
 getchar();
-while (true)
-{
-    c = getchar();
-    if (c == EOF || c == '\n')
-        break;
+while (true) {
+  c = getchar();
+  if (c == EOF || c == '\n')
+    break;
 }
 
 /* ================== */
@@ -70,11 +64,13 @@ printf("%s", buffer);       // string until \0
 printf("%f", f);            // float
 printf("%lf", d);           // double
 printf("%0*.*f", x, y, f);  // padding = 0, width = x, decimals = y
-printf("(%.5s)\n", buffer); // print  at most the first five characters (safe to use on short strings)
+printf("(%.5s)\n", buffer); // print  at most the first five characters (safe to
+                            // use on short strings)
 
 // print at most first n characters (safe)
-printf("(%.*s)\n", n, buffer); // make sure that n is integer (with long long I had problems)
-//string + \n
+printf("(%.*s)\n", n,
+       buffer); // make sure that n is integer (with long long I had problems)
+// string + \n
 puts(buffer);
 
 /* ===================== */
@@ -90,18 +86,17 @@ int sscanf(const char *s, const char *format, ...);
 // Same as printf but writing into str, the number of characters is returned
 // or negative if there is failure
 int sprintf(char *str, const char *format, ...);
-//example:
+// example:
 int n = sprintf(buffer, "%d plus %d is %d", a, b, a + b);
 printf("[%s] is a string %d chars long\n", buffer, n);
 
 /* ======================= */
 /* Peek last char of stdin */
 /* ======================= */
-bool peekAndCheck(char c)
-{
-    char c2 = getchar();
-    ungetc(c2, stdin); // return char to stdin
-    return c == c2;
+bool peekAndCheck(char c) {
+  char c2 = getchar();
+  ungetc(c2, stdin); // return char to stdin
+  return c == c2;
 }
 
 /* ================ */
@@ -110,8 +105,7 @@ bool peekAndCheck(char c)
 // reading a line of unknown length
 string line;
 getline(cin, line);
-while (getline(cin, line))
-{
+while (getline(cin, line)) {
 }
 
 // Optimizations with cin/cout
@@ -128,8 +122,7 @@ cout.precision(4); // e.g. 1.000
 /* ====================== */
 // ii = pair<int,int>
 ii p(5, 5);
-ii p = make_pair(5, 5)
-    ii p = {5, 5};
+ii p = make_pair(5, 5) ii p = {5, 5};
 int x = p.first, y = p.second;
 // iii = tuple<int,int,int>
 iii t(5, 5, 5);
@@ -161,7 +154,8 @@ li1 = strtol(szNumbers, &pEnd, 10);
 li2 = strtol(pEnd, &pEnd, 16);
 li3 = strtol(pEnd, &pEnd, 2);
 li4 = strtol(pEnd, NULL, 0);
-printf("The decimal equivalents are: %ld, %ld, %ld and %ld.\n", li1, li2, li3, li4);
+printf("The decimal equivalents are: %ld, %ld, %ld and %ld.\n", li1, li2, li3,
+       li4);
 // option #2:
 long int atol(const char *str);
 // option #3:
@@ -175,7 +169,7 @@ sscanf(string, "%lld", &l);
 //--------------------------
 // string to double:
 // option #1:
-double strtod(const char *str, char **endptr); //similar to strtol
+double strtod(const char *str, char **endptr); // similar to strtol
 // option #2:
 double atof(const char *str);
 // option #3:
@@ -196,15 +190,14 @@ string s = "tok1 tok2 tok3";
 string tok;
 stringstream ss(s);
 while (getline(ss, tok, ' '))
-    printf("tok = %s\n", tok.c_str());
+  printf("tok = %s\n", tok.c_str());
 
 // split a string by a single char delimiter
-void split(const string &s, char delim, vector<string> &elems)
-{
-    stringstream ss(s);
-    string item;
-    while (getline(ss, item, delim))
-        elems.push_back(item);
+void split(const string &s, char delim, vector<string> &elems) {
+  stringstream ss(s);
+  string item;
+  while (getline(ss, item, delim))
+    elems.push_back(item);
 }
 
 // find index of string or char within string
@@ -213,8 +206,8 @@ std::size_t pos = str.find("ra");
 std::size_t pos = str.find('m');
 if (pos == string::npos) // not found
 
-    // substrings
-    string subs = str.substr(pos, length);
+  // substrings
+  string subs = str.substr(pos, length);
 string subs = str.substr(pos); // default: to the end of the string
 
 // std::string from cstring's substring
@@ -226,8 +219,8 @@ string subs(s + offset, len); // bla2
 // string comparisons
 int compare(const string &str) const;
 int compare(size_t pos, size_t len, const string &str) const;
-int compare(size_t pos, size_t len, const string &str,
-            size_t subpos, size_t sublen) const;
+int compare(size_t pos, size_t len, const string &str, size_t subpos,
+            size_t sublen) const;
 int compare(const char *s) const;
 int compare(size_t pos, size_t len, const char *s) const;
 
@@ -243,48 +236,38 @@ word.compare(0, prefix.size(), prefix);
 
 //--------------------------
 // method #1: inside struct
-struct Point
-{
-    int x, y;
-    bool operator<(const Point &p) const
-    {
-        if (x != p.x)
-            return x < p.x;
-        return y < p.y;
-    }
-    bool operator>(const Point &p) const
-    {
-        if (x != p.x)
-            return x > p.x;
-        return y > p.y;
-    }
-    bool operator==(const Point &p) const
-    {
-        return x == p.x && y == p.y;
-    }
+struct Point {
+  int x, y;
+  bool operator<(const Point &p) const {
+    if (x != p.x)
+      return x < p.x;
+    return y < p.y;
+  }
+  bool operator>(const Point &p) const {
+    if (x != p.x)
+      return x > p.x;
+    return y > p.y;
+  }
+  bool operator==(const Point &p) const { return x == p.x && y == p.y; }
 };
 
 //--------------------------
 // method #2: outside struct
-struct Point
-{
-    int x, y;
+struct Point {
+  int x, y;
 };
-bool operator<(const Point &a, const Point &b)
-{
-    if (a.x != b.x)
-        return a.x < b.x;
-    return a.y < b.y;
+bool operator<(const Point &a, const Point &b) {
+  if (a.x != b.x)
+    return a.x < b.x;
+  return a.y < b.y;
 }
-bool operator>(const Point &a, const Point &b)
-{
-    if (a.x != b.x)
-        return a.x > b.x;
-    return a.y > b.y;
+bool operator>(const Point &a, const Point &b) {
+  if (a.x != b.x)
+    return a.x > b.x;
+  return a.y > b.y;
 }
-bool operator==(const Point &a, const Point &b)
-{
-    return a.x == b.x && a.y == b.y;
+bool operator==(const Point &a, const Point &b) {
+  return a.x == b.x && a.y == b.y;
 }
 
 // Note: if you overload the < operator for a custom struct,
@@ -304,21 +287,18 @@ map<Point, int> pt_map;
 /* ================== */
 // method #1: operator overloading
 // method #2: custom comparison function
-bool cmp(const Point &a, const Point &b)
-{
-    if (a.x != b.x)
-        return a.x < b.x;
-    return a.y < b.y;
+bool cmp(const Point &a, const Point &b) {
+  if (a.x != b.x)
+    return a.x < b.x;
+  return a.y < b.y;
 }
 // method #3: functor
-struct cmp
-{
-    bool operator()(const Point &a, const Point &b)
-    {
-        if (a.x != b.x)
-            return a.x < b.x;
-        return a.y < b.y;
-    }
+struct cmp {
+  bool operator()(const Point &a, const Point &b) {
+    if (a.x != b.x)
+      return a.x < b.x;
+    return a.y < b.y;
+  }
 };
 // without operator overloading, you would have to use
 // an explicit comparison method when using library
@@ -354,27 +334,23 @@ myset.begin();  // iterator to first elemnt
 myset.end();    // iterator to after last element
 myset.rbegin(); // iterator to last element
 myset.rend();   // iterator to before first element
-for (auto it = myset.begin(); it != myset.end(); ++it)
-{
-    do_something(*it);
+for (auto it = myset.begin(); it != myset.end(); ++it) {
+  do_something(*it);
 } // left -> right
-for (auto it = myset.rbegin(); it != myset.rend(); ++it)
-{
-    do_something(*it);
+for (auto it = myset.rbegin(); it != myset.rend(); ++it) {
+  do_something(*it);
 } // right -> left
-for (auto &i : myset)
-{
-    do_something(i);
+for (auto &i : myset) {
+  do_something(i);
 } // left->right shortcut
-auto ret = myset.insert(5);  // ret.first = iterator, ret.second = boolean (inserted / not inserted)
+auto ret = myset.insert(
+    5); // ret.first = iterator, ret.second = boolean (inserted / not inserted)
 int count = mysert.erase(5); // count = how many items were erased
-if (!myset.empty())
-{
+if (!myset.empty()) {
 }
 // custom comparator 1: functor
-struct cmp
-{
-    bool operator()(int i, int j) { return i > j; }
+struct cmp {
+  bool operator()(int i, int j) { return i > j; }
 };
 set<int, cmp> myset;
 // custom comparator 2: function
@@ -384,13 +360,11 @@ set<int, bool (*)(int, int)> myset(cmp);
 /* ===================== */
 /* MAP UTILITY FUNCTIONS */
 /* ===================== */
-struct Point
-{
-    int x, y;
+struct Point {
+  int x, y;
 };
-bool operator<(const Point &a, const Point &b)
-{
-    return a.x < b.x || (a.x == b.x && a.y < b.y);
+bool operator<(const Point &a, const Point &b) {
+  return a.x < b.x || (a.x == b.x && a.y < b.y);
 }
 map<Point, int> ptcounts;
 
@@ -404,24 +378,22 @@ ptcounts[{1, 2}] = 1;
 // method #2: .insert(pair<key, value>)
 // it returns a pair { iterator(key, value) , bool }
 // if the key already exists, it doesn't overwrite the value
-void update_count(Point &p)
-{
-    auto ret = ptcounts.emplace(p, 1);
-    // auto ret = ptcounts.insert(make_pair(p, 1)); //
-    if (!ret.second)
-        ret.first->second++;
+void update_count(Point &p) {
+  auto ret = ptcounts.emplace(p, 1);
+  // auto ret = ptcounts.insert(make_pair(p, 1)); //
+  if (!ret.second)
+    ret.first->second++;
 }
 
 // -------------------------
 // generating ids with map
-int get_id(string &name)
-{
-    static int id = 0;
-    static map<string, int> name2id;
-    auto it = name2id.find(name);
-    if (it == name2id.end())
-        return name2id[name] = id++;
-    return it->second;
+int get_id(string &name) {
+  static int id = 0;
+  static map<string, int> name2id;
+  auto it = name2id.find(name);
+  if (it == name2id.end())
+    return name2id[name] = id++;
+  return it->second;
 }
 
 /* ======================== */
@@ -441,10 +413,9 @@ foo.test(1);   // true
 #include <cstdlib>
 #include <ctime>
 srand(time(NULL));
-int x = rand() % 100; // 0-99
-int randBetween(int a, int b)
-{ // a-b
-    return a + (rand() % (1 + b - a));
+int x = rand() % 100;           // 0-99
+int randBetween(int a, int b) { // a-b
+  return a + (rand() % (1 + b - a));
 }
 
 /* ======= */
@@ -484,26 +455,24 @@ int log2(int x) { return sizeof(x) * 8 - __builtin_clz(x) - 1; }
 int log2(ll x) { return sizeof(x) * 8 - __builtin_clzll(x) - 1; }
 
 // reverse the bits of an integer
-int reverse_bits(int x)
-{
-    int v = 0;
-    while (x)
-        v <<= 1, v |= x & 1, x >>= 1;
-    return v;
+int reverse_bits(int x) {
+  int v = 0;
+  while (x)
+    v <<= 1, v |= x & 1, x >>= 1;
+  return v;
 }
 
 // get string binary representation of an integer
-string bitstring(int x)
-{
-    int len = sizeof(x) * 8 - __builtin_clz(x);
-    if (len == 0)
-        return "0";
+string bitstring(int x) {
+  int len = sizeof(x) * 8 - __builtin_clz(x);
+  if (len == 0)
+    return "0";
 
-    char buff[len + 1];
-    buff[len] = '\0';
-    for (int i = len - 1; i >= 0; --i, x >>= 1)
-        buff[i] = (char)('0' + (x & 1));
-    return string(buff);
+  char buff[len + 1];
+  buff[len] = '\0';
+  for (int i = len - 1; i >= 0; --i, x >>= 1)
+    buff[i] = (char)('0' + (x & 1));
+  return string(buff);
 }
 
 /* ================== */
@@ -511,26 +480,23 @@ string bitstring(int x)
 /* ================== */
 
 // get string hex representation of an integer
-string to_hex(int num)
-{
-    static char buff[100];
-    static const char *hexdigits = "0123456789abcdef";
-    buff[99] = '\0';
-    int i = 98;
-    do
-    {
-        buff[i--] = hexdigits[num & 0xf];
-        num >>= 4;
-    } while (num);
-    return string(buff + i + 1);
+string to_hex(int num) {
+  static char buff[100];
+  static const char *hexdigits = "0123456789abcdef";
+  buff[99] = '\0';
+  int i = 98;
+  do {
+    buff[i--] = hexdigits[num & 0xf];
+    num >>= 4;
+  } while (num);
+  return string(buff + i + 1);
 }
 
 // ['0'-'9' 'a'-'f'] ->  [0 - 15]
-int char_to_digit(char c)
-{
-    if ('0' <= c && c <= '9')
-        return c - '0';
-    return 10 + c - 'a';
+int char_to_digit(char c) {
+  if ('0' <= c && c <= '9')
+    return c - '0';
+  return 10 + c - 'a';
 }
 
 /* ============ */
@@ -543,7 +509,9 @@ swap(x, y);
 /* =========== */
 /*    TIPS     */
 /* =========== */
-// 1) do not use .emplace(x, y) if your struct doesn't have an explicit constructor
+// 1) do not use .emplace(x, y) if your struct doesn't have an explicit
+// constructor
 //    instead you can use .push({x, y})
-// 2) be careful while mixing scanf() with getline(), scanf will not consume \n unless
+// 2) be careful while mixing scanf() with getline(), scanf will not consume \n
+// unless
 //    you explicitly tell it to do so (e.g scanf("%d\n", &x)) )

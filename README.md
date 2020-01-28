@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This repository holds all the boilerplate code que that I and my team use during training and actual competitions. Almost all .cpp files are ready to be copied and pasted, including relevant comments. However, for anyone using this repository, we must caution that a good understanding of the code and the theory behind it is needed in order to be effective using it, as it will most likely need some form of modifications for your particular problem.
+This repository holds all the boilerplate code that my team and I use during training and actual competitions. Almost all .cpp files are ready to be copied and pasted, including relevant comments. However, for anyone using this repository, we must caution that a good understanding of the code and the theory behind it is needed in order to be effective using it, as it will most likely need some form of modifications for your particular problem.
 
 ## Printable version
 
@@ -67,6 +67,8 @@ Add the following
     -   [ ] 3D
 
 # Credit
+
+If you think you deserve credit for any implementation in these notes, please contact us
 
 -   Strings
     -   KMP:

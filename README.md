@@ -20,15 +20,16 @@ To my teammate and the original creator of this repo, [Ignacio Hermosilla](https
 Add the following
 - [ ] Python Cheat Sheet
 - [ ] Prim
-- [x] Green's Theorem
-- [ ] Convex Hull
-- [x] Rolling Hashing
 - [x] Search
   - [x] Binary
   - [x] Ternary
 - [ ] Sparse Tables
+- [ ] Persistent Segment Tree
 - [ ] Treap
-- [ ] Wavelet Tree
+  - [ ] Implicit Treap
+  - [ ] Persistent Treap <!--Buscar en apuntes argentinos y/o cp algorithms-->
+  - [ ] RBST
+- [x] Wavelet Tree
 - [x] DP Examples
   - [x] Travelling Salesman
   - [x] Knapsack Problem
@@ -38,11 +39,21 @@ Add the following
   - [ ] Convex Hull Trick
   - [ ] Divide & Conquer Optimization
   - [ ] Knuth's Optimization
-- [ ] Toposort
 - [ ] Strongly Connected Components
   - [ ] Tarjan
   - [ ] Kosaraju
+- [ ] Toposort
 - [ ] Heavy Light Decomposition
+- [ ] FFT
+- [x] Rolling Hashing
+- [ ] Aho-Corasick
+- [ ] Suffix Tree
+- [ ] Suffix Automaton
+- [ ] Add Geometry
+- [x] Green's Theorem
+- [ ] Convex Hull
+  - [ ] 2D
+  - [ ] 3D
 
 # Credit
 - Strings

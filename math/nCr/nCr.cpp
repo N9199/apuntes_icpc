@@ -2,6 +2,7 @@
 #include "../CRT/CRT.cpp"
 #include "../primalityChecks/millerRabin/millerRabin.cpp"
 #include "../primalityChecks/sieveEratosthenes/sieve.cpp"
+#include "../modularArithmetic/modularArithmetic.cpp"
 
 // Modular computation of nCr using lucas theorem, granville theorem and CRT
 
@@ -43,7 +44,7 @@ next:
                 FMOD[p.first][i] = mul(FMOD[p.first][i - 1], i, FMOD[p.first].size());
 
             //Compute using Euler's theorem i.e. a^phi(m)=1 mod m with (a.m)=1
-            invFMOD[p.first][i] = fastPow(FMOD[p.first][i], m / p.first * (p.first - 1) - 1, m);
+            invFMOD[p.first][i] = modularInverse(FMOD[p.first][i], m);
         }
     }
 }
@@ -86,8 +87,8 @@ ll granville(ll n, ll r, int p)
         return 0;
     ll ans = fastPow(p, e, m);
     ans = mul(ans, F(n, p), m);
-    ans = mul(ans, fastPow(F(r, p), pow(p, MOD[p] - 1) * (p - 1) - 1, m), m);
-    ans = mul(ans, fastPow(F(n - r, p), pow(p, MOD[p] - 1) * (p - 1) - 1, m), m);
+    ans = mul(ans, modularInverse(F(r, p), m), m);
+    ans = mul(ans, modularInverse(F(n - r, p), m), m);
     return ans;
 }
 

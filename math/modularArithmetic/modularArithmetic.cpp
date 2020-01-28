@@ -38,7 +38,7 @@ ll modularInverse(ll n, ll mod)
 {
     ll x, y;
     ll g = gcdext(n, mod, x, y);
-    return x;
+    return (x + mod) % mod;
 }
 
 ll mulmod(ull a, ull b, ull c)
@@ -66,4 +66,3 @@ ll fastPow(ll x, ll n, ll MOD)
     }
     return ret;
 }
-

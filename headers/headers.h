@@ -1,7 +1,7 @@
 #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h> //Import all
 
-using namespace std; //Less vebose code
+using namespace std; //Less verbose code
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -30,9 +30,6 @@ typedef vector<vii> wgraph;
 #define lg(x) (31 - __builtin_clz(x))
 #define lgg(x) (63 - __buitlin_clzll(x))
 #define gcd __gcd
-
-// Or LLONG_MAX for ll
-#define INF INT_MAX 
 
 #define umap unordered_map
 #define uset unordered_set

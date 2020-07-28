@@ -1,66 +1,76 @@
 #include "../../headers/headers.h"
 
-struct RSQ // Range sum query
-{
-  static ll const neutro = 0;
-  static ll op(ll x, ll y) { return x + y; }
-  static ll lazy_op(int i, int j, ll x) { return (j - i + 1) * x; }
+// Range Sum Query where update sets
+struct rsum {
+  ll value;
+  ll lazy_value = 0;
+  bool lazy = false;
+  rsum() { value = 0; } // identity
+  rsum(ll x) { value = x; }
+  rsum(const rsum &a, const rsum &b) { value = a.value + b.value; } // op
+  rsum(int i, int j, int x, const rsum &b) {                        // lazy op
+    value = x * (j - i + 1);
+  }
+  rsum(int x, const rsum &b) { // lazy update
+    value = b.value, lazy = true, lazy_value = x;
+  }
 };
 
-struct RMinQ // Range minimun query
-{
-  static ll const neutro = 1e18;
-  static ll op(ll x, ll y) { return min(x, y); }
-  static ll lazy_op(int i, int j, ll x) { return x; }
+// Range Min Query where update sums
+struct rminq {
+  ll value;
+  ll lazy_value = 0;
+  bool lazy = false;
+  rminq() { value = 1e18; } // identity
+  rminq(ll x) { value = x; }
+  rminq(const rminq &a, const rminq &b) { value = min(a.value, b.value); } // op
+  rminq(int i, int j, int x, const rminq &b) { value = x + b.value; } // lazy op
+  rminq(int x, const rminq &b) { // lazy update
+    value = b.value, lazy = true, lazy_value = x + b.lazy_value;
+  }
 };
 
-template <class t> class SegTreeLazy {
-  vector<ll> arr, st, lazy;
+template <class node> class STL {
+  vector<node> st;
   int n;
 
-  void build(int u, int i, int j) {
+  void build(int u, int i, int j, vector<node> &arr) {
     if (i == j) {
-      st[u] = arr[i];
+      st[u] = node(arr[i]);
       return;
     }
     int m = (i + j) / 2, l = u * 2 + 1, r = u * 2 + 2;
-    build(l, i, m);
-    build(r, m + 1, j);
-    st[u] = t::op(st[l], st[r]);
+    build(l, i, m, arr);
+    build(r, m + 1, j, arr);
+    st[u] = node(st[l], st[r]);
   }
 
   void propagate(int u, int i, int j, ll x) {
-    // nota, las operaciones pueden ser un and, or, ..., etc.
-    st[u] += t::lazy_op(i, j, x); // incrementar el valor (+)
-    // st[u] = t::lazy_op(i, j, x); // setear el valor
+    st[u] = node(i, j, x, st[u]);
     if (i != j) {
-      // incrementar el valor
-      lazy[u * 2 + 1] += x;
-      lazy[u * 2 + 2] += x;
-      // setear el valor
-      // lazy[u * 2 + 1] = x;
-      // lazy[u * 2 + 2] = x;
+      st[u * 2 + 1] = node(x, st[u * 2 + 1]);
+      st[u * 2 + 2] = node(x, st[u * 2 + 2]);
     }
-    lazy[u] = 0;
   }
 
-  ll query(int a, int b, int u, int i, int j) {
+  node query(int a, int b, int u, int i, int j) {
     if (j < a or b < i)
-      return t::neutro;
+      return node();
     int m = (i + j) / 2, l = u * 2 + 1, r = u * 2 + 2;
-    if (lazy[u])
-      propagate(u, i, j, lazy[u]);
-    if (a <= i and j <= b)
+    if (st[u].lazy)
+      propagate(u, i, j, st[u].lazy_value);
+    if (a <= i and j <= b) {
       return st[u];
-    ll x = query(a, b, l, i, m);
-    ll y = query(a, b, r, m + 1, j);
-    return t::op(x, y);
+    }
+    node x = query(a, b, l, i, m);
+    node y = query(a, b, r, m + 1, j);
+    return node(x, y);
   }
 
   void update(int a, int b, ll value, int u, int i, int j) {
     int m = (i + j) / 2, l = u * 2 + 1, r = u * 2 + 2;
-    if (lazy[u])
-      propagate(u, i, j, lazy[u]);
+    if (st[u].lazy)
+      propagate(u, i, j, st[u].lazy_value);
     if (a <= i and j <= b)
       propagate(u, i, j, value);
     else if (j < a or b < i)
@@ -68,20 +78,18 @@ template <class t> class SegTreeLazy {
     else {
       update(a, b, value, l, i, m);
       update(a, b, value, r, m + 1, j);
-      st[u] = t::op(st[l], st[r]);
+      st[u] = node(st[l], st[r]);
     }
   }
 
 public:
-  SegTreeLazy(vector<ll> &v) {
-    arr = v;
+  STL(vector<node> &v) {
     n = v.size();
     st.resize(n * 4 + 5);
-    lazy.assign(n * 4 + 5, 0);
-    build(0, 0, n - 1);
+    build(0, 0, n - 1, v);
   }
 
-  ll query(int a, int b) { return query(a, b, 0, 0, n - 1); }
+  node query(int a, int b) { return query(a, b, 0, 0, n - 1); }
 
   void update(int a, int b, ll value) { update(a, b, value, 0, 0, n - 1); }
 };

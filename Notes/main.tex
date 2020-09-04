@@ -74,11 +74,11 @@
 \renewcommand*{\subfile}[1]{%
     \filename@parse{#1}% LaTeX's file name parser
     \expandafter
-    \graphicspath\expandafter{\expandafter{\filename@area}}%
+    \graphicspath\expandafter{\expandafter{\filename@area}}% Used for graphicx package
     \expandafter
-    \lstset\expandafter{inputpath={\expandafter\filename@area}}
-    \org@subfile{#1}%
-    \lstset{inputpath=\currfiledir}
+    \lstset\expandafter{inputpath={\expandafter\filename@area}}% Set listings search path
+    \org@subfile{#1}
+    \lstset{inputpath=\currfiledir}% Reset listings search path using currfile package
 }
 \makeatother
 
@@ -90,11 +90,11 @@
 \subfile{info}
 
 \section{C++ Cheat Sheet}
-\subsection{Headers}
+\subsection{Headers}s
 \lstinputlisting{../headers/headers.h}
 
 \subsection{Cheat Sheet}
-\lstinputlisting[firstline=7]{../cheatSheet/cheatSheet.cpp}
+\lstinputlisting[firstline=3]{../cheatSheet/cheatSheet.cpp}
 
 %\section{Python Cheat Sheet}
 

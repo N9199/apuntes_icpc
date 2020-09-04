@@ -22,7 +22,7 @@ To my teammate and the original creator of this repo, [Ignacio Hermosilla](https
 
 Redo the following
 
--   [ ] Rewrite DP algorithms
+-   [ ] Rewrite DP algorithms into small recursive form in LaTeX
     -   [ ] Knapsack
     -   [ ] MCM
     -   [ ] LIS

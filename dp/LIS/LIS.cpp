@@ -1,20 +1,20 @@
 #include "../../headers/headers.h"
 
 vi L;
-vi vals;
-int maxl = 1;
+vi A;
+int curr_l = 1;
 
 // Bottom up approach O(nlogn)
 int lis(int n) {
   L.assign(n, -1);
-  L[0] = vals[0];
+  L[0] = A[0];
   repx(i, 1, n) {
-    auto it = lower_bound(L.begin(), L.begin() + maxl, vals[i]);
-    if (it == L.begin() + maxl) {
-      L[maxl] = vals[i];
-      maxl++;
+    auto it = lower_bound(L.begin(), L.begin() + curr_l, A[i]);
+    if (it == L.begin() + curr_l) {
+      L[curr_l] = A[i];
+      curr_l++;
     } else
-      *it = vals[i];
+      *it = A[i];
   }
-  return maxl;
+  return curr_l;
 }

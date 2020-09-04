@@ -20,7 +20,7 @@ public:
         t[i][j] += value;
   }
 
-  // sum[(0, 0), (r, c)]
+  // sum[(1, 1), (r, c)]
   T sum(int r, int c) {
     T res = 0;
     for (int i = r; i >= 0; i = (i & (i + 1)) - 1)

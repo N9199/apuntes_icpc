@@ -4,11 +4,27 @@
 \section{Dynamic Programming}
 
 \subsection{Knapsack}
-\lstinputlisting[firstline=3]{Knapsack/Knapsack.cpp}
+Assuming \(w>0\), \(i\geq0\) and \(w\geq w_i\)
+\begin{align*}
+    DP[w][i] & = \max(V_i+DP[w-w_i][i-1],DP[w][i-1])
+\end{align*}
+Base cases:
+\begin{align*}
+    DP[w][i] & =\begin{cases}
+        DP[w][i] & \text{if }w<w_i                \\
+        0        & \text{if }i<0\text{ or }w\leq0
+    \end{cases}
+\end{align*}
 
 \subsection{Matrix Chain Multiplication}
-\lstinputlisting[firstline=3]{Matrix_Chain_Multiplication/MCM.cpp}
+Given a monoid \(M\) with operation \(\cdot\), a cost function \(c:M^2\rightarrow \mathbb{R}_{>0}\), and a finite sequence of elements of \(M\), \(a_1,\dots,a_n\), we can calculate the minimum cost of operating the elements (i.e. where to put the parenthesis on \(a_1\cdot\ldots\cdot a_n\) such that the total cost is minimized (the cost function is used when every operation is done)) with the following DP:
+\begin{equation*}
+    DP[i][j]=\min_{i\leq k<j}(c(A_{i,k},A_{k+1,j})+DP[i][k]+DP[k+1][j])
+\end{equation*}
+Where \(1\leq i\leq j\leq n\) and \(A_{i,j}=a_i\cdot\ldots\cdot a_j\)
+%\lstinputlisting[firstline=3]{Matrix_Chain_Multiplication/MCM.cpp}
 
 \subsection{Longest Increasing Subsequence}
-\lstinputlisting[firstline=3]{LIS/LIS.cpp}
+Given a sequence \(a_1,\ldots,a_n\), we can find the LIS using the following method, using an auxiliary array \(L\) of size \(n\) and a counter \(currL\), set \(L[0]=a_1\) and \(currL=1\) then, in the sequence order, for each element \(a_i\) search for the lower bound \(L[j]\) of \(a_i\) between \(L[0]\) and \(L[currL-1]\), if \(j=currL-1\) then set \(L[currL]=a_i\) and increase \(curr_l\) by one, in the other case set \(L[j]=a_i\).
+%\lstinputlisting[firstline=3]{LIS/LIS.cpp}
 \end{document}

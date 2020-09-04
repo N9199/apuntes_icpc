@@ -2,8 +2,10 @@
 
 struct FenwickTree {
   vector<int> FT;
-  FenwickTree(int N) { FT.resize(N + 1, 0); }
-
+  FenwickTree(int N) { FT.resize(N + 2, 0); }
+  // Queries puntuales y Updates por rango
+  // xor
+  // Queries por rango y Updates puntuales
   int query(int i) {
     int ans = 0;
     for (; i; i -= i & (-i))
@@ -19,7 +21,6 @@ struct FenwickTree {
       FT[i] += v - s;
   }
 
-  // Queries puntuales, Updates por rango
   void update(int i, int j, int v) {
     update(i, v);
     update(j + 1, -v);

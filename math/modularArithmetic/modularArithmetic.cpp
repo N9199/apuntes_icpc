@@ -34,10 +34,11 @@ ll gcdext(ll a, ll b, ll &x, ll &y) {
 
 ll modularInverse(ll n, ll mod) {
   ll x, y;
-  ll g = gcdext(n, mod, x, y);
+  gcdext(n, mod, x, y);
   return (x + mod) % mod;
 }
 
+// if c is big (> (1<<32))
 ll mulmod(ull a, ull b, ull c) {
   ull x = 0, y = a % c;
   while (b) {

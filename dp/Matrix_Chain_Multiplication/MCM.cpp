@@ -1,30 +1,24 @@
 #include "../../headers/headers.h"
 
-vector<vector<ii>> DP; // Pair value, op result
-int n;                 // Size of DP (i.e. i,j<n)
-ii op(ii a, ii b) {
-  return {
-      a.first + b.first + a.second * b.second,
-      (a.second + b.second) %
-          100}; // Second part MUST be associative, first part is cost function
-}
+int inline op(int a, int b) { return (a + b) % 100; }
+int inline cost(int a, int b) { return a * b; }
 
-ii MCM(int i, int j) {
-  if (DP[i][j].first != -1)
-    return DP[i][j];
-  int ans = 1e9; // INF
-  int res;
-  repx(k, i + 1, j) {
-    ii temp = op(MCM(i, k), MCM(k, j));
-    ans = min(ans, temp.first);
-    res = temp.second;
-  }
-  return DP[i][j] = {ans, res};
-}
+vector<vector<ll>> DP;
+vector<vector<int>> A;
 
-void fill() {
-  DP.assign(n, vector<ii>(n, {-1, 0}));
-  rep(i, n - 1) {
-    DP[i][i + 1].first = 1;
-  } // Pair op identity, cost (cost must be from input)
+// Minimize on [i,j]
+ll func(int i, int j)
+{
+    if (DP[i][j] != -1)
+        return DP[i][j];
+    ll temp, ans = 1e9;
+    repx(k, i, j)
+    {
+        temp = cost(A[i][k], A[k + 1][j]) + func(i, k) + func(k + 1, j);
+        ans = min(ans, temp);
+    }
+    return DP[i][j] = ans;
 }
+void inline fill() { rep(i, A.size()) repx(j, i + 1, A.size()) A[i][j] = op(A[i][j - 1], A[j][j]); }
+
+// Call func(0, DP.size()-1)
